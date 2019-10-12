@@ -1,4 +1,5 @@
-import com.gregorriegler.transactional.RunnableChain;
+package com.gregorriegler.transactional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -48,45 +49,10 @@ class TestTransactional {
         inOrder.verify(transaction).commit();
     }
 
-}
+    interface SomeRepository {
+        void update();
 
-class Transactional {
-    private final RunnableChain runnable;
-
-    private Transactional(RunnableChain runnable) {
-        this.runnable = runnable;
+        void updateToo();
     }
 
-    static Transactional of(Runnable runnable) {
-        return new Transactional(RunnableChain.of(runnable));
-    }
-
-    void run(Transaction transaction) {
-        try {
-            transaction.begin();
-            runnable.run();
-            transaction.commit();
-        } catch (RuntimeException e) {
-            transaction.rollback();
-            throw e;
-        }
-    }
-
-    Transactional andThen(Runnable runnable) {
-        return new Transactional(this.runnable.andThen(runnable));
-    }
-}
-
-interface Transaction {
-    void begin();
-
-    void commit();
-
-    void rollback();
-}
-
-interface SomeRepository {
-    void update();
-
-    void updateToo();
 }

@@ -1,4 +1,5 @@
-import com.gregorriegler.transactional.RunnableChain;
+package com.gregorriegler.transactional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -30,10 +31,10 @@ class TestRunnableChain {
         inOrder.verify(someInterface).method();
         inOrder.verify(someInterface).anotherMethod();
     }
-}
 
-interface SomeInterface {
-    void method();
+    interface SomeInterface {
+        void method();
 
-    void anotherMethod();
+        void anotherMethod();
+    }
 }
