@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -35,6 +36,19 @@ class TestTransactional {
         inOrder.verify(transaction).rollback();
     }
 
+    @Disabled
+    @Test void
+    should_chain_functions_within_transaction() {
+        Transactional.of(repository::update)
+            .andThen(repository::updateToo)
+            .run(transaction);
+
+        inOrder.verify(transaction).begin();
+        inOrder.verify(repository).update();
+        inOrder.verify(repository).updateToo();
+        inOrder.verify(transaction).commit();
+    }
+
 }
 
 class Transactional {
@@ -58,6 +72,10 @@ class Transactional {
             throw e;
         }
     }
+
+    Transactional andThen(Runnable runnable) {
+        return null;
+    }
 }
 
 interface Transaction {
@@ -70,4 +88,6 @@ interface Transaction {
 
 interface SomeRepository {
     void update();
+
+    void updateToo();
 }
