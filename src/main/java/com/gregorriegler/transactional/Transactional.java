@@ -25,4 +25,8 @@ public class Transactional {
     public Transactional andThen(Runnable runnable) {
         return new Transactional(this.runnable.andThen(runnable));
     }
+
+    public Transactional andThen(Transactional anotherTransactional) {
+        return new Transactional(this.runnable.andThen(anotherTransactional.runnable));
+    }
 }

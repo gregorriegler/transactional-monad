@@ -49,6 +49,19 @@ class TestTransactional {
         inOrder.verify(transaction).commit();
     }
 
+    @Test void
+    should_flatten_if_necessary() {
+        Transactional transactional = Transactional.of(repository::update);
+        Transactional anotherTransactional = Transactional.of(repository::updateToo);
+
+        transactional.andThen(anotherTransactional).run(transaction);
+
+        inOrder.verify(transaction).begin();
+        inOrder.verify(repository).update();
+        inOrder.verify(repository).updateToo();
+        inOrder.verify(transaction).commit();
+    }
+
     interface SomeRepository {
         void update();
 

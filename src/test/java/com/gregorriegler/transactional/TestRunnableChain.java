@@ -24,7 +24,22 @@ class TestRunnableChain {
     @Test
     void
     should_chain_runnables() {
-        RunnableChain chain = RunnableChain.of(someInterface::method).andThen(someInterface::anotherMethod);
+        RunnableChain chain = RunnableChain.of(someInterface::method)
+            .andThen(someInterface::anotherMethod);
+
+        chain.run();
+
+        InOrder inOrder = Mockito.inOrder(someInterface);
+        inOrder.verify(someInterface).method();
+        inOrder.verify(someInterface).anotherMethod();
+    }
+
+    @Test
+    void
+    should_flatten_out_runnables() {
+        RunnableChain chain = RunnableChain.of(someInterface::method)
+            .andThen(RunnableChain.of(someInterface::anotherMethod));
+
         chain.run();
 
         InOrder inOrder = Mockito.inOrder(someInterface);

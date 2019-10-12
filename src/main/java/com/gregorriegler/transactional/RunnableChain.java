@@ -1,18 +1,18 @@
 package com.gregorriegler.transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RunnableChain {
-    private final List<Runnable> runnables = new ArrayList<>();
+    private final List<Runnable> runnables;
 
     private RunnableChain(Runnable runnable) {
-        this.runnables.add(runnable);
+        this.runnables = Collections.singletonList(runnable);
     }
 
-    private RunnableChain(List<Runnable> runnables, Runnable runnable) {
-        this.runnables.addAll(runnables);
-        this.runnables.add(runnable);
+    private RunnableChain(List<Runnable> runnables) {
+        this.runnables = Collections.unmodifiableList(runnables);
     }
 
     public static RunnableChain of(Runnable runnable) {
@@ -24,6 +24,15 @@ public class RunnableChain {
     }
 
     public RunnableChain andThen(Runnable runnable) {
-        return new RunnableChain(runnables, runnable);
+        ArrayList<Runnable> list = new ArrayList<>(runnables);
+        list.add(runnable);
+        return new RunnableChain(list);
+    }
+
+    public RunnableChain andThen(RunnableChain chain) {
+        ArrayList<Runnable> runnables = new ArrayList<>();
+        runnables.addAll(this.runnables);
+        runnables.addAll(chain.runnables);
+        return new RunnableChain(runnables);
     }
 }
