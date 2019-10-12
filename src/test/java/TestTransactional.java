@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Disabled;
+import com.gregorriegler.transactional.RunnableChain;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -36,7 +36,6 @@ class TestTransactional {
         inOrder.verify(transaction).rollback();
     }
 
-    @Disabled
     @Test void
     should_chain_functions_within_transaction() {
         Transactional.of(repository::update)
@@ -52,14 +51,14 @@ class TestTransactional {
 }
 
 class Transactional {
-    private final Runnable runnable;
+    private final RunnableChain runnable;
 
-    private Transactional(Runnable runnable) {
+    private Transactional(RunnableChain runnable) {
         this.runnable = runnable;
     }
 
     static Transactional of(Runnable runnable) {
-        return new Transactional(runnable);
+        return new Transactional(RunnableChain.of(runnable));
     }
 
     void run(Transaction transaction) {
@@ -74,7 +73,7 @@ class Transactional {
     }
 
     Transactional andThen(Runnable runnable) {
-        return null;
+        return new Transactional(this.runnable.andThen(runnable));
     }
 }
 
