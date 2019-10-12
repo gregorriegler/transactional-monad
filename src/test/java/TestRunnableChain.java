@@ -1,9 +1,7 @@
+import com.gregorriegler.transactional.RunnableChain;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -31,32 +29,6 @@ class TestRunnableChain {
         InOrder inOrder = Mockito.inOrder(someInterface);
         inOrder.verify(someInterface).method();
         inOrder.verify(someInterface).anotherMethod();
-    }
-
-}
-
-class RunnableChain {
-    private final List<Runnable> runnables = new ArrayList<>();
-
-    private RunnableChain(Runnable runnable) {
-        this.runnables.add(runnable);
-    }
-
-    private RunnableChain(List<Runnable> runnables, Runnable runnable) {
-        this.runnables.addAll(runnables);
-        this.runnables.add(runnable);
-    }
-
-    static RunnableChain of(Runnable runnable) {
-        return new RunnableChain(runnable);
-    }
-
-    void run() {
-        runnables.forEach(Runnable::run);
-    }
-
-    RunnableChain andThen(Runnable runnable) {
-        return new RunnableChain(runnables, runnable);
     }
 }
 
