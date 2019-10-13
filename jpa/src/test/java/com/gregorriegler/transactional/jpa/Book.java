@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional.hibernate;
+package com.gregorriegler.transactional.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

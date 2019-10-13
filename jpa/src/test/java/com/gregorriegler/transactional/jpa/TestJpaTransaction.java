@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional.hibernate;
+package com.gregorriegler.transactional.jpa;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

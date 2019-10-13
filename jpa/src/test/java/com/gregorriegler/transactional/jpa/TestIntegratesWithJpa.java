@@ -1,7 +1,6 @@
-package com.gregorriegler.transactional.hibernate;
+package com.gregorriegler.transactional.jpa;
 
 import com.gregorriegler.transactional.core.Transactional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,12 +11,12 @@ import javax.persistence.Persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TestIntegratesWithHibernate {
+class TestIntegratesWithJpa {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
     @BeforeAll static void initEntityManagerFactory() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("com.gregorriegler.transactional.hibernate");
+        entityManagerFactory = Persistence.createEntityManagerFactory("com.gregorriegler.transactional.jpa");
     }
 
     @BeforeEach

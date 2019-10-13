@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional.hibernate;
+package com.gregorriegler.transactional.jpa;
 
 import com.gregorriegler.transactional.core.Transaction;
 
