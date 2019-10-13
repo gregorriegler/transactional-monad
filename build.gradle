@@ -1,29 +1,27 @@
-plugins {
-    id 'java'
-}
+subprojects {
+    apply plugin: 'java'
 
-group 'gregorriegler.com'
-version '1.0-SNAPSHOT'
+    group 'gregorriegler.com'
+    version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+    sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-test {
-    useJUnitPlatform()
-}
+    dependencies {
+        testCompile(
+                'org.junit.jupiter:junit-jupiter-api:5.5.1',
+                'org.junit.jupiter:junit-jupiter-params:5.4.2',
+                'org.assertj:assertj-core:3.13.2',
+                'org.mockito:mockito-core:3.0.0',
+                'org.mockito:mockito-junit-jupiter:3.0.0'
+        )
+        testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.1')
+    }
 
-dependencies {
-    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    
-    testCompile(
-            'org.junit.jupiter:junit-jupiter-api:5.5.1',
-            'org.junit.jupiter:junit-jupiter-params:5.4.2',
-            'org.assertj:assertj-core:3.13.2',
-            'org.mockito:mockito-core:3.0.0',
-            'org.mockito:mockito-junit-jupiter:3.0.0'
-    )
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.1')
+    test {
+        useJUnitPlatform()
+    }
 }
