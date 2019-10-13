@@ -1,4 +1,9 @@
 dependencies {
     compile project(':core')
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    testCompile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.6.Final'
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
+
+
+
 }
