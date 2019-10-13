@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional;
+package com.gregorriegler.transactional.core;
 
 import java.util.ArrayList;
 import java.util.Collections;

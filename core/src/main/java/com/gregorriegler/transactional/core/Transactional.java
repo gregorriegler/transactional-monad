@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional;
+package com.gregorriegler.transactional.core;
 
 public class Transactional {
     private final RunnableChain runnable;

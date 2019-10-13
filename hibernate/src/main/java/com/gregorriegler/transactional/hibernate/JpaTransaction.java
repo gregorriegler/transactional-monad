@@ -1,4 +1,6 @@
-package com.gregorriegler.transactional;
+package com.gregorriegler.transactional.hibernate;
+
+import com.gregorriegler.transactional.core.Transaction;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

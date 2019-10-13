@@ -1,3 +1,4 @@
 dependencies {
     compile project(':core')
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }

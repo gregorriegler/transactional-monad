@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional;
+package com.gregorriegler.transactional.core;
 
 public interface Transaction {
     void begin();

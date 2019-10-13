@@ -1,4 +1,4 @@
-package com.gregorriegler.transactional;
+package com.gregorriegler.transactional.core;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
